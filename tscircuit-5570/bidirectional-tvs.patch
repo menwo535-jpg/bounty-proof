@@ -1,0 +1,522 @@
+From d1dae2ed10261b9fdc0a75a9f0f7b6400fdb74e1 Mon Sep 17 00:00:00 2001
+From: Xiaolong Pan <menwo535@gmail.com>
+Date: Wed, 18 Nov 2026 16:20:43 +0800
+Subject: [PATCH] Add a two-terminal bidirectional TVS diode symbol
+
+---
+ README.md                                     |   5 +
+ assets/generated/bidirectional_tvs_diode.json | 176 ++++++++++++++++++
+ assets/symbols/bidirectional_tvs_diode.svg    |  17 ++
+ generated/base-symbol-names.ts                |   2 +-
+ generated/symbols-index.ts                    |   8 +
+ symbols/bidirectional_tvs_diode_down.ts       |   7 +
+ symbols/bidirectional_tvs_diode_left.ts       |   7 +
+ symbols/bidirectional_tvs_diode_right.ts      |   7 +
+ symbols/bidirectional_tvs_diode_up.ts         |   7 +
+ .../bidirectional_tvs_diode_down.snap.svg     |  28 +++
+ .../bidirectional_tvs_diode_left.snap.svg     |  28 +++
+ .../bidirectional_tvs_diode_right.snap.svg    |  28 +++
+ .../bidirectional_tvs_diode_up.snap.svg       |  28 +++
+ tests/bidirectional-tvs-diode.test.ts         |  36 ++++
+ 14 files changed, 383 insertions(+), 1 deletion(-)
+ create mode 100644 assets/generated/bidirectional_tvs_diode.json
+ create mode 100644 assets/symbols/bidirectional_tvs_diode.svg
+ create mode 100644 symbols/bidirectional_tvs_diode_down.ts
+ create mode 100644 symbols/bidirectional_tvs_diode_left.ts
+ create mode 100644 symbols/bidirectional_tvs_diode_right.ts
+ create mode 100644 symbols/bidirectional_tvs_diode_up.ts
+ create mode 100644 tests/__snapshots__/bidirectional_tvs_diode_down.snap.svg
+ create mode 100644 tests/__snapshots__/bidirectional_tvs_diode_left.snap.svg
+ create mode 100644 tests/__snapshots__/bidirectional_tvs_diode_right.snap.svg
+ create mode 100644 tests/__snapshots__/bidirectional_tvs_diode_up.snap.svg
+ create mode 100644 tests/bidirectional-tvs-diode.test.ts
+
+diff --git a/README.md b/README.md
+index b04385e..ac57606 100644
+--- a/README.md
++++ b/README.md
+@@ -34,6 +34,11 @@ or `symbols.diode_xs_down`. Use `led_sm`, `avalanche_diode_sm`, or `zener_diode_
+ use the `1`/`pos`/`anode` and
+ `2`/`neg`/`cathode` pin aliases.
+ 
++For a bidirectional transient-voltage suppressor, use
++`bidirectional_tvs_diode_right` (also `_left`, `_up`, or `_down`). Its
++two terminals are numbered 1 and 2. For a unidirectional suppressor, the
++`avalanche_diode` family shows the cathode.
++
+ ## Adding New Symbols
+ 
+ 1. Add a new svg file to the `./assets/symbols` directory (copy volt_meter.svg to a new file named `<symbol_name>.svg`)
+diff --git a/assets/generated/bidirectional_tvs_diode.json b/assets/generated/bidirectional_tvs_diode.json
+new file mode 100644
+index 0000000..a591c11
+--- /dev/null
++++ b/assets/generated/bidirectional_tvs_diode.json
+@@ -0,0 +1,176 @@
++{
++  "paths": {
++    "left-lead": {
++      "type": "path",
++      "points": [
++        {
++          "x": -0.5,
++          "y": 0
++        },
++        {
++          "x": -0.2999999999999998,
++          "y": 0
++        }
++      ],
++      "color": "primary",
++      "fill": false
++    },
++    "left-junction": {
++      "type": "path",
++      "points": [
++        {
++          "x": -0.2999999999999998,
++          "y": 0.11999999999999988
++        },
++        {
++          "x": -0.08000000000000007,
++          "y": 0
++        },
++        {
++          "x": -0.2999999999999998,
++          "y": -0.1200000000000001
++        },
++        {
++          "x": -0.2999999999999998,
++          "y": 0.11999999999999988
++        }
++      ],
++      "color": "primary",
++      "fill": false
++    },
++    "left-cathode": {
++      "type": "path",
++      "points": [
++        {
++          "x": -0.1299999999999999,
++          "y": 0.1499999999999999
++        },
++        {
++          "x": -0.08000000000000007,
++          "y": 0.11999999999999988
++        },
++        {
++          "x": -0.08000000000000007,
++          "y": -0.1200000000000001
++        },
++        {
++          "x": -0.030000000000000027,
++          "y": -0.15000000000000013
++        }
++      ],
++      "color": "primary",
++      "fill": false
++    },
++    "internal-connection": {
++      "type": "path",
++      "points": [
++        {
++          "x": -0.08000000000000007,
++          "y": 0
++        },
++        {
++          "x": 0.08000000000000007,
++          "y": 0
++        }
++      ],
++      "color": "primary",
++      "fill": false
++    },
++    "right-cathode": {
++      "type": "path",
++      "points": [
++        {
++          "x": 0.13000000000000012,
++          "y": -0.15000000000000013
++        },
++        {
++          "x": 0.08000000000000007,
++          "y": -0.1200000000000001
++        },
++        {
++          "x": 0.08000000000000007,
++          "y": 0.11999999999999988
++        },
++        {
++          "x": 0.03000000000000025,
++          "y": 0.1499999999999999
++        }
++      ],
++      "color": "primary",
++      "fill": false
++    },
++    "right-junction": {
++      "type": "path",
++      "points": [
++        {
++          "x": 0.30000000000000004,
++          "y": -0.1200000000000001
++        },
++        {
++          "x": 0.08000000000000007,
++          "y": 0
++        },
++        {
++          "x": 0.30000000000000004,
++          "y": 0.11999999999999988
++        },
++        {
++          "x": 0.30000000000000004,
++          "y": -0.1200000000000001
++        }
++      ],
++      "color": "primary",
++      "fill": false
++    },
++    "right-lead": {
++      "type": "path",
++      "points": [
++        {
++          "x": 0.30000000000000004,
++          "y": 0
++        },
++        {
++          "x": 0.5,
++          "y": 0
++        }
++      ],
++      "color": "primary",
++      "fill": false
++    }
++  },
++  "texts": {
++    "top1": {
++      "type": "text",
++      "text": "{REF}",
++      "x": 0,
++      "y": 0.2599999999999998
++    },
++    "bottom1": {
++      "type": "text",
++      "text": "{VAL}",
++      "x": 0,
++      "y": -0.26000000000000023
++    }
++  },
++  "refblocks": {
++    "left1": {
++      "x": -0.5,
++      "y": 0
++    },
++    "right1": {
++      "x": 0.5,
++      "y": 0
++    }
++  },
++  "bounds": {
++    "minX": -0.5,
++    "maxX": 0.5,
++    "minY": -0.26000000000000023,
++    "maxY": 0.2599999999999998,
++    "width": 1,
++    "height": 0.52,
++    "centerX": 0,
++    "centerY": -2.220446049250313e-16
++  },
++  "circles": {}
++}
+\ No newline at end of file
+diff --git a/assets/symbols/bidirectional_tvs_diode.svg b/assets/symbols/bidirectional_tvs_diode.svg
+new file mode 100644
+index 0000000..6a3906b
+--- /dev/null
++++ b/assets/symbols/bidirectional_tvs_diode.svg
+@@ -0,0 +1,17 @@
++<svg xmlns="http://www.w3.org/2000/svg" width="30mm" height="30mm" viewBox="0 0 30 30">
++  <g id="root">
++    <g id="bidirectional_tvs_diode" fill="none" stroke="black" stroke-width="0.2" stroke-linejoin="round">
++      <path id="left-lead" d="M 10 15 H 12" />
++      <path id="left-junction" d="M 12 13.8 L 14.2 15 L 12 16.2 L 12 13.8 Z" />
++      <path id="left-cathode" d="M 13.7 13.5 L 14.2 13.8 V 16.2 L 14.7 16.5" />
++      <path id="internal-connection" d="M 14.2 15 H 15.8" />
++      <path id="right-cathode" d="M 16.3 16.5 L 15.8 16.2 V 13.8 L 15.3 13.5" />
++      <path id="right-junction" d="M 18 16.2 L 15.8 15 L 18 13.8 L 18 16.2 Z" />
++      <path id="right-lead" d="M 18 15 H 20" />
++      <circle id="refblock-left" cx="10" cy="15" r="0" />
++      <circle id="refblock-right" cx="20" cy="15" r="0" />
++      <text x="15" y="12.4" fill="black" stroke="none" text-anchor="middle">{REF}</text>
++      <text x="15" y="17.6" fill="black" stroke="none" text-anchor="middle">{VAL}</text>
++    </g>
++  </g>
++</svg>
+diff --git a/generated/base-symbol-names.ts b/generated/base-symbol-names.ts
+index 5443bfa..eef5aad 100644
+--- a/generated/base-symbol-names.ts
++++ b/generated/base-symbol-names.ts
+@@ -1 +1 @@
+-export type BaseSymbolName = "ac_voltmeter" | "and_gate" | "avalanche_diode" | "avalanche_diode_sm" | "avalanche_diode_xs" | "backward_diode" | "battery" | "boxresistor" | "boxresistor_sm" | "boxresistor_small" | "boxresistor_xs" | "bridged_ground" | "capacitor" | "capacitor_polarized" | "capacitor_sm" | "capacitor_xs" | "constant_current_diode" | "crystal_4pin" | "crystal" | "current_source" | "darlington_pair_transistor" | "dc_ammeter" | "dc_voltmeter" | "diac" | "digital_ground" | "diode" | "diode_sm" | "diode_xs" | "dpdt_normally_closed_switch" | "dpdt_switch" | "dpst_normally_closed_switch" | "dpst_switch" | "dual_series_schottky_diode" | "ferrite_bead" | "filled_diode" | "frequency_meter" | "fuse" | "ground" | "gunn_diode" | "icled" | "igbt_transistor" | "illuminated_push_button_normally_open" | "inductor" | "laser_diode" | "led" | "led_sm" | "led_xs" | "light_dependent_resistor" | "mosfet_depletion_normally_on" | "mushroom_head_normally_open_momentary" | "n_channel_d_mosfet_transistor" | "n_channel_e_mosfet_transistor" | "njfet_transistor" | "not_connected" | "npn_bipolar_transistor" | "opamp_no_power" | "opamp_with_power" | "p_channel_d_mosfet_transistor" | "p_channel_e_mosfet_transistor" | "photodiode" | "phototransistor_optocoupler" | "pjfet_transistor" | "pnp_bipolar_transistor" | "potentiometer" | "potentiometer2" | "potentiometer3" | "power_factor_meter" | "push_button_normally_closed_momentary" | "push_button_normally_open_momentary" | "rail" | "rectifier_diode" | "resistor" | "resistor_sm" | "resistor_xs" | "resonator" | "schmitt_trigger_inverter" | "schottky_diode" | "silicon_controlled_rectifier" | "solderjumper2_bridged12" | "solderjumper2" | "solderjumper3_bridged12" | "solderjumper3_bridged123" | "solderjumper3_bridged23" | "solderjumper3" | "spdt_normally_closed_switch" | "spdt_switch" | "speaker" | "spst_normally_closed_switch" | "spst_switch" | "square_wave" | "step_recovery_diode" | "tachometer" | "testpoint" | "tilted_ground" | "transformer_4_winding" | "triac" | "tunnel_diode" | "unijunction_transistor" | "usbc" | "var_meter" | "varactor_diode" | "varistor" | "varmeter" | "vcc" | "volt_meter" | "watt_hour_meter" | "wattmeter" | "zener_diode" | "zener_diode_sm" | "zener_diode_xs";
++export type BaseSymbolName = "ac_voltmeter" | "and_gate" | "avalanche_diode" | "avalanche_diode_sm" | "avalanche_diode_xs" | "backward_diode" | "battery" | "bidirectional_tvs_diode" | "boxresistor" | "boxresistor_sm" | "boxresistor_small" | "boxresistor_xs" | "bridged_ground" | "capacitor" | "capacitor_polarized" | "capacitor_sm" | "capacitor_xs" | "constant_current_diode" | "crystal_4pin" | "crystal" | "current_source" | "darlington_pair_transistor" | "dc_ammeter" | "dc_voltmeter" | "diac" | "digital_ground" | "diode" | "diode_sm" | "diode_xs" | "dpdt_normally_closed_switch" | "dpdt_switch" | "dpst_normally_closed_switch" | "dpst_switch" | "dual_series_schottky_diode" | "ferrite_bead" | "filled_diode" | "frequency_meter" | "fuse" | "ground" | "gunn_diode" | "icled" | "igbt_transistor" | "illuminated_push_button_normally_open" | "inductor" | "laser_diode" | "led" | "led_sm" | "led_xs" | "light_dependent_resistor" | "mosfet_depletion_normally_on" | "mushroom_head_normally_open_momentary" | "n_channel_d_mosfet_transistor" | "n_channel_e_mosfet_transistor" | "njfet_transistor" | "not_connected" | "npn_bipolar_transistor" | "opamp_no_power" | "opamp_with_power" | "p_channel_d_mosfet_transistor" | "p_channel_e_mosfet_transistor" | "photodiode" | "phototransistor_optocoupler" | "pjfet_transistor" | "pnp_bipolar_transistor" | "potentiometer" | "potentiometer2" | "potentiometer3" | "power_factor_meter" | "push_button_normally_closed_momentary" | "push_button_normally_open_momentary" | "rail" | "rectifier_diode" | "resistor" | "resistor_sm" | "resistor_xs" | "resonator" | "schmitt_trigger_inverter" | "schottky_diode" | "silicon_controlled_rectifier" | "solderjumper2_bridged12" | "solderjumper2" | "solderjumper3_bridged12" | "solderjumper3_bridged123" | "solderjumper3_bridged23" | "solderjumper3" | "spdt_normally_closed_switch" | "spdt_switch" | "speaker" | "spst_normally_closed_switch" | "spst_switch" | "square_wave" | "step_recovery_diode" | "tachometer" | "testpoint" | "tilted_ground" | "transformer_4_winding" | "triac" | "tunnel_diode" | "unijunction_transistor" | "usbc" | "var_meter" | "varactor_diode" | "varistor" | "varmeter" | "vcc" | "volt_meter" | "watt_hour_meter" | "wattmeter" | "zener_diode" | "zener_diode_sm" | "zener_diode_xs";
+diff --git a/generated/symbols-index.ts b/generated/symbols-index.ts
+index 93f906e..a1f63ea 100644
+--- a/generated/symbols-index.ts
++++ b/generated/symbols-index.ts
+@@ -32,6 +32,10 @@ import _battery_left from "./../symbols/battery_left"
+ import _battery_right from "./../symbols/battery_right"
+ import _battery_up from "./../symbols/battery_up"
+ import _battery_vert from "./../symbols/battery_vert"
++import _bidirectional_tvs_diode_down from "./../symbols/bidirectional_tvs_diode_down"
++import _bidirectional_tvs_diode_left from "./../symbols/bidirectional_tvs_diode_left"
++import _bidirectional_tvs_diode_right from "./../symbols/bidirectional_tvs_diode_right"
++import _bidirectional_tvs_diode_up from "./../symbols/bidirectional_tvs_diode_up"
+ import _boxresistor_down from "./../symbols/boxresistor_down"
+ import _boxresistor_left from "./../symbols/boxresistor_left"
+ import _boxresistor_right from "./../symbols/boxresistor_right"
+@@ -471,6 +475,10 @@ export default {
+   "battery_right": _battery_right,
+   "battery_up": _battery_up,
+   "battery_vert": _battery_vert,
++  "bidirectional_tvs_diode_down": _bidirectional_tvs_diode_down,
++  "bidirectional_tvs_diode_left": _bidirectional_tvs_diode_left,
++  "bidirectional_tvs_diode_right": _bidirectional_tvs_diode_right,
++  "bidirectional_tvs_diode_up": _bidirectional_tvs_diode_up,
+   "boxresistor_down": _boxresistor_down,
+   "boxresistor_left": _boxresistor_left,
+   "boxresistor_right": _boxresistor_right,
+diff --git a/symbols/bidirectional_tvs_diode_down.ts b/symbols/bidirectional_tvs_diode_down.ts
+new file mode 100644
+index 0000000..b586a56
+--- /dev/null
++++ b/symbols/bidirectional_tvs_diode_down.ts
+@@ -0,0 +1,7 @@
++import svgJson from "../assets/generated/bidirectional_tvs_diode.json"
++import { createPassiveSizeVariant } from "../drawing/createPassiveSizeVariant"
++
++export default createPassiveSizeVariant(svgJson, {
++  kind: "diode",
++  orientation: "down",
++})
+diff --git a/symbols/bidirectional_tvs_diode_left.ts b/symbols/bidirectional_tvs_diode_left.ts
+new file mode 100644
+index 0000000..d910677
+--- /dev/null
++++ b/symbols/bidirectional_tvs_diode_left.ts
+@@ -0,0 +1,7 @@
++import svgJson from "../assets/generated/bidirectional_tvs_diode.json"
++import { createPassiveSizeVariant } from "../drawing/createPassiveSizeVariant"
++
++export default createPassiveSizeVariant(svgJson, {
++  kind: "diode",
++  orientation: "left",
++})
+diff --git a/symbols/bidirectional_tvs_diode_right.ts b/symbols/bidirectional_tvs_diode_right.ts
+new file mode 100644
+index 0000000..41cf06c
+--- /dev/null
++++ b/symbols/bidirectional_tvs_diode_right.ts
+@@ -0,0 +1,7 @@
++import svgJson from "../assets/generated/bidirectional_tvs_diode.json"
++import { createPassiveSizeVariant } from "../drawing/createPassiveSizeVariant"
++
++export default createPassiveSizeVariant(svgJson, {
++  kind: "diode",
++  orientation: "right",
++})
+diff --git a/symbols/bidirectional_tvs_diode_up.ts b/symbols/bidirectional_tvs_diode_up.ts
+new file mode 100644
+index 0000000..be76a1f
+--- /dev/null
++++ b/symbols/bidirectional_tvs_diode_up.ts
+@@ -0,0 +1,7 @@
++import svgJson from "../assets/generated/bidirectional_tvs_diode.json"
++import { createPassiveSizeVariant } from "../drawing/createPassiveSizeVariant"
++
++export default createPassiveSizeVariant(svgJson, {
++  kind: "diode",
++  orientation: "up",
++})
+diff --git a/tests/__snapshots__/bidirectional_tvs_diode_down.snap.svg b/tests/__snapshots__/bidirectional_tvs_diode_down.snap.svg
+new file mode 100644
+index 0000000..1501bdd
+--- /dev/null
++++ b/tests/__snapshots__/bidirectional_tvs_diode_down.snap.svg
+@@ -0,0 +1,28 @@
++<svg width="150" height="150" viewBox="-0.54 -0.6 1.08 1.2" xmlns="http://www.w3.org/2000/svg"><path d="M-3.061616997868383e-17,-0.5 L-1.8369701987210288e-17,-0.2999999999999998" fill="none" stroke="black" stroke-width="0.02" stroke-linecap="round" stroke-linejoin="round" />
++    <path d="M0.11999999999999987,-0.2999999999999998 L-4.8985871965894174e-18,-0.08000000000000007 L-0.12000000000000012,-0.2999999999999998 L0.11999999999999987,-0.2999999999999998" fill="none" stroke="black" stroke-width="0.02" stroke-linecap="round" stroke-linejoin="round" />
++    <path d="M0.1499999999999999,-0.1299999999999999 L0.11999999999999988,-0.08000000000000008 L-0.1200000000000001,-0.08000000000000006 L-0.15000000000000013,-0.030000000000000016" fill="none" stroke="black" stroke-width="0.02" stroke-linecap="round" stroke-linejoin="round" />
++    <path d="M-4.8985871965894174e-18,-0.08000000000000007 L4.8985871965894174e-18,0.08000000000000007" fill="none" stroke="black" stroke-width="0.02" stroke-linecap="round" stroke-linejoin="round" />
++    <path d="M-0.15000000000000013,0.13000000000000012 L-0.1200000000000001,0.08000000000000008 L0.11999999999999988,0.08000000000000006 L0.1499999999999999,0.03000000000000024" fill="none" stroke="black" stroke-width="0.02" stroke-linecap="round" stroke-linejoin="round" />
++    <path d="M-0.12000000000000009,0.30000000000000004 L4.8985871965894174e-18,0.08000000000000007 L0.1199999999999999,0.30000000000000004 L-0.12000000000000009,0.30000000000000004" fill="none" stroke="black" stroke-width="0.02" stroke-linecap="round" stroke-linejoin="round" />
++    <path d="M1.83697019872103e-17,0.30000000000000004 L3.061616997868383e-17,0.5" fill="none" stroke="black" stroke-width="0.02" stroke-linecap="round" stroke-linejoin="round" />
++    <text x="0.2" y="-0.14" dx="0" dy="0.037500000000000006" text-anchor="start" style="font: 0.1px monospace; fill: black">{REF}</text><rect x="0.1875" y="-0.15250000000000002" width="0.025" height="0.025" fill="blue" />
++    <text x="0.2" y="0.14" dx="0" dy="0.037500000000000006" text-anchor="start" style="font: 0.1px monospace; fill: black">{VAL}</text><rect x="0.1875" y="0.1275" width="0.025" height="0.025" fill="blue" />
++
++
++    <line x1="-0.025000000000000033" y1="-0.525" x2="0.02499999999999997" y2="-0.475" stroke="red" stroke-width="0.004" />
++    <line x1="-0.025000000000000033" y1="-0.475" x2="0.02499999999999997" y2="-0.525" stroke="red" stroke-width="0.004" />
++
++    <text x="-0.04000000000000003" y="-0.41000000000000003"
++      text-anchor="middle" style="font: 0.08px monospace; fill: #833;">1</text>
++
++
++
++    <line x1="-0.02499999999999997" y1="0.475" x2="0.025000000000000033" y2="0.525" stroke="red" stroke-width="0.004" />
++    <line x1="-0.02499999999999997" y1="0.525" x2="0.025000000000000033" y2="0.475" stroke="red" stroke-width="0.004" />
++
++    <text x="-0.03999999999999997" y="0.5900000000000001"
++      text-anchor="middle" style="font: 0.08px monospace; fill: #833;">2</text>
++
++<path d="M 0 -0.025 L 0.025 0 L 0 0.025 L -0.025 0 Z" fill="green" />
++<text x="-0.45" y="-0.5" style="font: 0.05px monospace; fill: #833;">0.90 x 1.00</text>
++<text x="-0.45" y="-0.5" style="font: 0.05px monospace; fill: #833;">0.90 x 1.00</text></svg>
+\ No newline at end of file
+diff --git a/tests/__snapshots__/bidirectional_tvs_diode_left.snap.svg b/tests/__snapshots__/bidirectional_tvs_diode_left.snap.svg
+new file mode 100644
+index 0000000..5fcaf20
+--- /dev/null
++++ b/tests/__snapshots__/bidirectional_tvs_diode_left.snap.svg
+@@ -0,0 +1,28 @@
++<svg width="150" height="150" viewBox="-0.6 -0.39 1.2 0.78" xmlns="http://www.w3.org/2000/svg"><path d="M0.5,-6.123233995736766e-17 L0.2999999999999998,-3.6739403974420576e-17" fill="none" stroke="black" stroke-width="0.02" stroke-linecap="round" stroke-linejoin="round" />
++    <path d="M0.2999999999999998,0.11999999999999984 L0.08000000000000007,-9.797174393178835e-18 L0.2999999999999998,-0.12000000000000015 L0.2999999999999998,0.11999999999999984" fill="none" stroke="black" stroke-width="0.02" stroke-linecap="round" stroke-linejoin="round" />
++    <path d="M0.12999999999999992,0.14999999999999988 L0.08000000000000008,0.11999999999999987 L0.08000000000000006,-0.12000000000000012 L0.03000000000000001,-0.15000000000000013" fill="none" stroke="black" stroke-width="0.02" stroke-linecap="round" stroke-linejoin="round" />
++    <path d="M0.08000000000000007,-9.797174393178835e-18 L-0.08000000000000007,9.797174393178835e-18" fill="none" stroke="black" stroke-width="0.02" stroke-linecap="round" stroke-linejoin="round" />
++    <path d="M-0.13000000000000014,-0.1500000000000001 L-0.08000000000000008,-0.12000000000000009 L-0.08000000000000006,0.1199999999999999 L-0.03000000000000023,0.1499999999999999" fill="none" stroke="black" stroke-width="0.02" stroke-linecap="round" stroke-linejoin="round" />
++    <path d="M-0.30000000000000004,-0.12000000000000006 L-0.08000000000000007,9.797174393178835e-18 L-0.30000000000000004,0.11999999999999993 L-0.30000000000000004,-0.12000000000000006" fill="none" stroke="black" stroke-width="0.02" stroke-linecap="round" stroke-linejoin="round" />
++    <path d="M-0.30000000000000004,3.67394039744206e-17 L-0.5,6.123233995736766e-17" fill="none" stroke="black" stroke-width="0.02" stroke-linecap="round" stroke-linejoin="round" />
++    <text x="0" y="-0.22" dx="0" dy="0" text-anchor="middle" style="font: 0.1px monospace; fill: black">{REF}</text><rect x="-0.0125" y="-0.2325" width="0.025" height="0.025" fill="blue" />
++    <text x="0" y="0.22" dx="0" dy="0.07500000000000001" text-anchor="middle" style="font: 0.1px monospace; fill: black">{VAL}</text><rect x="-0.0125" y="0.2075" width="0.025" height="0.025" fill="blue" />
++
++
++    <line x1="0.475" y1="-0.025000000000000064" x2="0.525" y2="0.02499999999999994" stroke="red" stroke-width="0.004" />
++    <line x1="0.475" y1="0.02499999999999994" x2="0.525" y2="-0.025000000000000064" stroke="red" stroke-width="0.004" />
++
++    <text x="0.46" y="0.08999999999999994"
++      text-anchor="middle" style="font: 0.08px monospace; fill: #833;">1</text>
++
++
++
++    <line x1="-0.525" y1="-0.02499999999999994" x2="-0.475" y2="0.025000000000000064" stroke="red" stroke-width="0.004" />
++    <line x1="-0.525" y1="0.025000000000000064" x2="-0.475" y2="-0.02499999999999994" stroke="red" stroke-width="0.004" />
++
++    <text x="-0.54" y="0.09000000000000007"
++      text-anchor="middle" style="font: 0.08px monospace; fill: #833;">2</text>
++
++<path d="M 0 -0.025 L 0.025 0 L 0 0.025 L -0.025 0 Z" fill="green" />
++<text x="-0.5" y="-0.325" style="font: 0.05px monospace; fill: #833;">1.00 x 0.65</text>
++<text x="-0.5" y="-0.325" style="font: 0.05px monospace; fill: #833;">1.00 x 0.65</text></svg>
+\ No newline at end of file
+diff --git a/tests/__snapshots__/bidirectional_tvs_diode_right.snap.svg b/tests/__snapshots__/bidirectional_tvs_diode_right.snap.svg
+new file mode 100644
+index 0000000..4946baf
+--- /dev/null
++++ b/tests/__snapshots__/bidirectional_tvs_diode_right.snap.svg
+@@ -0,0 +1,28 @@
++<svg width="150" height="150" viewBox="-0.6 -0.39 1.2 0.78" xmlns="http://www.w3.org/2000/svg"><path d="M-0.5,0 L-0.2999999999999998,0" fill="none" stroke="black" stroke-width="0.02" stroke-linecap="round" stroke-linejoin="round" />
++    <path d="M-0.2999999999999998,-0.11999999999999988 L-0.08000000000000007,0 L-0.2999999999999998,0.1200000000000001 L-0.2999999999999998,-0.11999999999999988" fill="none" stroke="black" stroke-width="0.02" stroke-linecap="round" stroke-linejoin="round" />
++    <path d="M-0.1299999999999999,-0.1499999999999999 L-0.08000000000000007,-0.11999999999999988 L-0.08000000000000007,0.1200000000000001 L-0.030000000000000027,0.15000000000000013" fill="none" stroke="black" stroke-width="0.02" stroke-linecap="round" stroke-linejoin="round" />
++    <path d="M-0.08000000000000007,0 L0.08000000000000007,0" fill="none" stroke="black" stroke-width="0.02" stroke-linecap="round" stroke-linejoin="round" />
++    <path d="M0.13000000000000012,0.15000000000000013 L0.08000000000000007,0.1200000000000001 L0.08000000000000007,-0.11999999999999988 L0.03000000000000025,-0.1499999999999999" fill="none" stroke="black" stroke-width="0.02" stroke-linecap="round" stroke-linejoin="round" />
++    <path d="M0.30000000000000004,0.1200000000000001 L0.08000000000000007,0 L0.30000000000000004,-0.11999999999999988 L0.30000000000000004,0.1200000000000001" fill="none" stroke="black" stroke-width="0.02" stroke-linecap="round" stroke-linejoin="round" />
++    <path d="M0.30000000000000004,0 L0.5,0" fill="none" stroke="black" stroke-width="0.02" stroke-linecap="round" stroke-linejoin="round" />
++    <text x="0" y="-0.22" dx="0" dy="0" text-anchor="middle" style="font: 0.1px monospace; fill: black">{REF}</text><rect x="-0.0125" y="-0.2325" width="0.025" height="0.025" fill="blue" />
++    <text x="0" y="0.22" dx="0" dy="0.07500000000000001" text-anchor="middle" style="font: 0.1px monospace; fill: black">{VAL}</text><rect x="-0.0125" y="0.2075" width="0.025" height="0.025" fill="blue" />
++
++
++    <line x1="-0.525" y1="-0.025" x2="-0.475" y2="0.025" stroke="red" stroke-width="0.004" />
++    <line x1="-0.525" y1="0.025" x2="-0.475" y2="-0.025" stroke="red" stroke-width="0.004" />
++
++    <text x="-0.54" y="0.09"
++      text-anchor="middle" style="font: 0.08px monospace; fill: #833;">1</text>
++
++
++
++    <line x1="0.475" y1="-0.025" x2="0.525" y2="0.025" stroke="red" stroke-width="0.004" />
++    <line x1="0.475" y1="0.025" x2="0.525" y2="-0.025" stroke="red" stroke-width="0.004" />
++
++    <text x="0.46" y="0.09"
++      text-anchor="middle" style="font: 0.08px monospace; fill: #833;">2</text>
++
++<path d="M 0 -0.025 L 0.025 0 L 0 0.025 L -0.025 0 Z" fill="green" />
++<text x="-0.5" y="-0.325" style="font: 0.05px monospace; fill: #833;">1.00 x 0.65</text>
++<text x="-0.5" y="-0.325" style="font: 0.05px monospace; fill: #833;">1.00 x 0.65</text></svg>
+\ No newline at end of file
+diff --git a/tests/__snapshots__/bidirectional_tvs_diode_up.snap.svg b/tests/__snapshots__/bidirectional_tvs_diode_up.snap.svg
+new file mode 100644
+index 0000000..0bf3413
+--- /dev/null
++++ b/tests/__snapshots__/bidirectional_tvs_diode_up.snap.svg
+@@ -0,0 +1,28 @@
++<svg width="150" height="150" viewBox="-0.54 -0.6 1.08 1.2" xmlns="http://www.w3.org/2000/svg"><path d="M-3.061616997868383e-17,0.5 L-1.8369701987210288e-17,0.2999999999999998" fill="none" stroke="black" stroke-width="0.02" stroke-linecap="round" stroke-linejoin="round" />
++    <path d="M-0.1199999999999999,0.2999999999999998 L-4.8985871965894174e-18,0.08000000000000007 L0.12000000000000009,0.2999999999999998 L-0.1199999999999999,0.2999999999999998" fill="none" stroke="black" stroke-width="0.02" stroke-linecap="round" stroke-linejoin="round" />
++    <path d="M-0.1499999999999999,0.1299999999999999 L-0.11999999999999988,0.08000000000000006 L0.1200000000000001,0.08000000000000008 L0.15000000000000013,0.030000000000000037" fill="none" stroke="black" stroke-width="0.02" stroke-linecap="round" stroke-linejoin="round" />
++    <path d="M-4.8985871965894174e-18,0.08000000000000007 L4.8985871965894174e-18,-0.08000000000000007" fill="none" stroke="black" stroke-width="0.02" stroke-linecap="round" stroke-linejoin="round" />
++    <path d="M0.15000000000000013,-0.13000000000000012 L0.1200000000000001,-0.08000000000000006 L-0.11999999999999988,-0.08000000000000008 L-0.1499999999999999,-0.03000000000000026" fill="none" stroke="black" stroke-width="0.02" stroke-linecap="round" stroke-linejoin="round" />
++    <path d="M0.12000000000000012,-0.30000000000000004 L4.8985871965894174e-18,-0.08000000000000007 L-0.11999999999999987,-0.30000000000000004 L0.12000000000000012,-0.30000000000000004" fill="none" stroke="black" stroke-width="0.02" stroke-linecap="round" stroke-linejoin="round" />
++    <path d="M1.83697019872103e-17,-0.30000000000000004 L3.061616997868383e-17,-0.5" fill="none" stroke="black" stroke-width="0.02" stroke-linecap="round" stroke-linejoin="round" />
++    <text x="0.2" y="-0.14" dx="0" dy="0.037500000000000006" text-anchor="start" style="font: 0.1px monospace; fill: black">{REF}</text><rect x="0.1875" y="-0.15250000000000002" width="0.025" height="0.025" fill="blue" />
++    <text x="0.2" y="0.14" dx="0" dy="0.037500000000000006" text-anchor="start" style="font: 0.1px monospace; fill: black">{VAL}</text><rect x="0.1875" y="0.1275" width="0.025" height="0.025" fill="blue" />
++
++
++    <line x1="-0.025000000000000033" y1="0.475" x2="0.02499999999999997" y2="0.525" stroke="red" stroke-width="0.004" />
++    <line x1="-0.025000000000000033" y1="0.525" x2="0.02499999999999997" y2="0.475" stroke="red" stroke-width="0.004" />
++
++    <text x="-0.04000000000000003" y="0.5900000000000001"
++      text-anchor="middle" style="font: 0.08px monospace; fill: #833;">1</text>
++
++
++
++    <line x1="-0.02499999999999997" y1="-0.525" x2="0.025000000000000033" y2="-0.475" stroke="red" stroke-width="0.004" />
++    <line x1="-0.02499999999999997" y1="-0.475" x2="0.025000000000000033" y2="-0.525" stroke="red" stroke-width="0.004" />
++
++    <text x="-0.03999999999999997" y="-0.41000000000000003"
++      text-anchor="middle" style="font: 0.08px monospace; fill: #833;">2</text>
++
++<path d="M 0 -0.025 L 0.025 0 L 0 0.025 L -0.025 0 Z" fill="green" />
++<text x="-0.45" y="-0.5" style="font: 0.05px monospace; fill: #833;">0.90 x 1.00</text>
++<text x="-0.45" y="-0.5" style="font: 0.05px monospace; fill: #833;">0.90 x 1.00</text></svg>
+\ No newline at end of file
+diff --git a/tests/bidirectional-tvs-diode.test.ts b/tests/bidirectional-tvs-diode.test.ts
+new file mode 100644
+index 0000000..209005e
+--- /dev/null
++++ b/tests/bidirectional-tvs-diode.test.ts
+@@ -0,0 +1,36 @@
++import { expect, test } from "bun:test"
++import symbols from "../generated/symbols-index"
++
++test("a bidirectional TVS has two opposed junctions and two non-polarized terminals", () => {
++  for (const direction of ["right", "up", "left", "down"] as const) {
++    const name = `bidirectional_tvs_diode_${direction}` as const
++    const symbol = symbols[name]
++    expect(symbol, name).toBeDefined()
++    expect(
++      symbol.ports.map((port) => port.labels),
++      name,
++    ).toEqual([["1"], ["2"]])
++
++    const axis = direction === "right" || direction === "left" ? "x" : "y"
++    const [first, second] = symbol.ports
++    expect(Math.abs(second[axis] - first[axis]), name).toBeCloseTo(1)
++    expect(Math.sign(second[axis] - first[axis]), name).toBe(
++      direction === "right" || direction === "up" ? 1 : -1,
++    )
++
++    // The triangle tips face each other across the internal cathode connection.
++    const triangles = symbol.primitives
++      .filter((part) => part.type === "path")
++      .filter(
++        (part) =>
++          part.points.length === 4 &&
++          part.points[0].x === part.points[3].x &&
++          part.points[0].y === part.points[3].y,
++      )
++    expect(triangles, name).toHaveLength(2)
++    const [firstTip, secondTip] = triangles.map(
++      (outline) => outline.points[1][axis] - outline.points[0][axis],
++    )
++    expect(firstTip * secondTip, name).toBeLessThan(0)
++  }
++})
